@@ -1,6 +1,16 @@
 pipeline {
     agent any  // Use the 'any' agent, similar to the working App Engine pipeline
+    triggers {
+        githubPush()
+    }
 
+    stages {
+        stage('Checkout') {
+            steps {
+                checkout scm
+            }
+        }
+    }
     environment {
         PROJECT_ID = 'new-dev-492605'  // GCP Project ID
         GOOGLE_APPLICATION_CREDENTIALS = credentials('gcp-service-account')  // Service account credentials
